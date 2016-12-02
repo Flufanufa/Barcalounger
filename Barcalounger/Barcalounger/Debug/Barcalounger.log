@@ -1,0 +1,5 @@
+﻿  VertexBufferObject.cpp
+c:\gamedev\barcalounger\barcalounger\barcalounger\vertexbufferobject.cpp : fatal error C1041: cannot open program database 'C:\GameDev\Barcalounger\Barcalounger\Barcalounger\Debug\Barcalounger.idb'; if multiple CL.EXE write to the same .PDB file, please use /FS
+  ModelManager.cpp
+c:\gamedev\barcalounger\barcalounger\barcalounger\modelmanager.cpp : fatal error C1041: cannot open program database 'C:\GameDev\Barcalounger\Barcalounger\Barcalounger\Debug\Barcalounger.pdb'; if multiple CL.EXE write to the same .PDB file, please use /FS
+  Generating Code...

@@ -1,0 +1,5 @@
+﻿  main.cpp
+Barcalounger.lib(Window.obj) : warning LNK4217: locally defined symbol _glewInit@0 imported in function "public: bool __thiscall Window::initializeWindow(int,int)" (?initializeWindow@Window@@QAE_NHH@Z)
+glew_static_vs2010_d.lib(glew.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'glew_static_vs2010_d.lib(glew.obj)' or at 'C:\GameDev\Barcalounger\Barcalounger\Debug\vc100.pdb'; linking object as if no debug info
+  Test1.vcxproj -> C:\GameDev\Barcalounger\Barcalounger\Debug\Test1.exe
+  Test1.vcxproj -> C:\GameDev\Barcalounger\Barcalounger\Debug\Test1.pdb (Partial PDB)
