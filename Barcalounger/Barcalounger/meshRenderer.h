@@ -9,28 +9,28 @@
 class MeshRenderer : public GameComponent
 {
 public:
-	MeshRenderer(Mesh* mesh, Material* material)
+	MeshRenderer(Mesh* _mesh, Material* _material)
 	{
-		m_mesh = mesh;
-		m_material = material;
+		mesh = _mesh;
+		material = _material;
 	}
 
 	virtual ~MeshRenderer()
 	{
-		if (m_mesh) delete m_mesh;
-		if (m_material) delete m_material;
+		if (mesh) delete mesh;
+		if (material) delete material;
 	}
 
-	virtual void Render(Shader* shader, RenderingEngine* renderingEngine)
+	virtual void Render(Shader* _shader, RenderingEngine* _renderingEngine)
 	{
-		shader->Bind();
-		shader->UpdateUniforms(GetTransform(), *m_material, renderingEngine);
-		m_mesh->Draw();
+		_shader->Bind();
+		_shader->UpdateUniforms(GetTransform(), *material, _renderingEngine);
+		mesh->Draw();
 	}
 protected:
 private:
-	Mesh* m_mesh;
-	Material* m_material;
+	Mesh* mesh;
+	Material* material;
 };
 
 #endif // MESHRENDERER_H_INCLUDED

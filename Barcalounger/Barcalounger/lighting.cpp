@@ -5,44 +5,44 @@
 
 #define COLOR_DEPTH 256
 
-void BaseLight::AddToEngine(CoreEngine* engine)
+void BaseLight::AddToEngine(CoreEngine* _engine)
 {
-	engine->GetRenderingEngine()->AddLight(this);
+	_engine->GetRenderingEngine()->AddLight(this);
 }
 
 BaseLight::~BaseLight()
 {
-	if (m_shader) delete m_shader;
+	if (shader) delete shader;
 }
 
-void BaseLight::SetShader(Shader* shader)
+void BaseLight::SetShader(Shader* _shader)
 {
-	if (m_shader) delete m_shader;
-	m_shader = shader;
+	if (shader) delete shader;
+	shader = _shader;
 }
 
-DirectionalLight::DirectionalLight(const Vector3f& color, float intensity) :
-	BaseLight(color, intensity)
+DirectionalLight::DirectionalLight(const Vector3f& _color, float _intensity) :
+	BaseLight(_color, _intensity)
 {
 	SetShader(new Shader("forward-directional"));
 }
 
-PointLight::PointLight(const Vector3f& color, float intensity, const Attenuation& atten) :
-	BaseLight(color, intensity),
-	atten(atten)
+PointLight::PointLight(const Vector3f& _color, float _intensity, const Attenuation& _atten) :
+	BaseLight(_color, _intensity),
+	atten(_atten)
 {
-	float a = atten.exponent;
-	float b = atten.linear;
-	float c = atten.constant - COLOR_DEPTH * intensity * color.Max();
+	float a = _atten.exponent;
+	float b = _atten.linear;
+	float c = _atten.constant - COLOR_DEPTH * intensity * _color.Max();
 
 	range = (-b + sqrtf(b*b - 4 * a*c)) / (2 * a);
 
 	SetShader(new Shader("forward-point"));
 }
 
-SpotLight::SpotLight(const Vector3f& color, float intensity, const Attenuation& atten, float cutoff) :
-	PointLight(color, intensity, atten),
-	cutoff(cutoff)
+SpotLight::SpotLight(const Vector3f& _color, float _intensity, const Attenuation& _atten, float _cutoff) :
+	PointLight(_color, _intensity, _atten),
+	cutoff(_cutoff)
 {
 	SetShader(new Shader("forward-spot"));
 }

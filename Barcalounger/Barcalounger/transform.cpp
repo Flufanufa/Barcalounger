@@ -1,28 +1,28 @@
 #include "transform.h"
 
-Transform::Transform(const Vector3f& pos, const Quaternion& rot, float scale)
+Transform::Transform(const Vector3f& _pos, const Quaternion& _rot, float _scale)
 {
-	m_pos = pos;
-	m_rot = rot;
-	m_scale = scale;
-	m_initializedOldStuff = false;
-	m_parent = 0;
+	pos = _pos;
+	rot = _rot;
+	scale = _scale;
+	initializedOldStuff = false;
+	parent = 0;
 
-	m_parentMatrix = Matrix4f().InitIdentity();
+	parentMatrix = Matrix4f().InitIdentity();
 }
 
 bool Transform::HasChanged()
 {
-	if (m_parent != 0 && m_parent->HasChanged())
+	if (parent != 0 && parent->HasChanged())
 		return true;
 
-	if (m_pos != m_oldPos)
+	if (pos != oldPos)
 		return true;
 
-	if (m_rot != m_oldRot)
+	if (rot != oldRot)
 		return true;
 
-	if (m_scale != m_scale)
+	if (scale != scale)
 		return true;
 
 	return false;
@@ -30,34 +30,34 @@ bool Transform::HasChanged()
 
 void Transform::Update()
 {
-	if (m_initializedOldStuff)
+	if (initializedOldStuff)
 	{
-		m_oldPos = m_pos;
-		m_oldRot = m_rot;
-		m_oldScale = m_scale;
+		oldPos = pos;
+		oldRot = rot;
+		oldScale = scale;
 	}
 	else
 	{
-		m_oldPos = m_pos + Vector3f(1, 1, 1);
-		m_oldRot = m_rot * 0.5f;
-		m_oldScale = m_scale + 1;
-		m_initializedOldStuff = true;
+		oldPos = pos + Vector3f(1, 1, 1);
+		oldRot = rot * 0.5f;
+		oldScale = scale + 1;
+		initializedOldStuff = true;
 	}
 }
 
-void Transform::Rotate(const Vector3f& axis, float angle)
+void Transform::Rotate(const Vector3f& _axis, float _angle)
 {
-	Rotate(Quaternion(axis, angle));
+	Rotate(Quaternion(_axis, _angle));
 }
 
-void Transform::Rotate(const Quaternion& rotation)
+void Transform::Rotate(const Quaternion& _rotation)
 {
-	m_rot = Quaternion((rotation * m_rot).Normalized());
+	rot = Quaternion((_rotation * rot).Normalized());
 }
 
-void Transform::LookAt(const Vector3f& point, const Vector3f& up)
+void Transform::LookAt(const Vector3f& _point, const Vector3f& _up)
 {
-	m_rot = GetLookAtRotation(point, up);
+	rot = GetLookAtRotation(_point, _up);
 }
 
 Matrix4f Transform::GetTransformation() const
@@ -65,18 +65,18 @@ Matrix4f Transform::GetTransformation() const
 	Matrix4f translationMatrix;
 	Matrix4f scaleMatrix;
 
-	translationMatrix.InitTranslation(Vector3f(m_pos.GetX(), m_pos.GetY(), m_pos.GetZ()));
-	scaleMatrix.InitScale(Vector3f(m_scale, m_scale, m_scale));
+	translationMatrix.InitTranslation(Vector3f(pos.GetX(), pos.GetY(), pos.GetZ()));
+	scaleMatrix.InitScale(Vector3f(scale, scale, scale));
 
-	Matrix4f result = translationMatrix * m_rot.ToRotationMatrix() * scaleMatrix;
+	Matrix4f result = translationMatrix * rot.ToRotationMatrix() * scaleMatrix;
 
 	return GetParentMatrix() * result;
 }
 
 Matrix4f Transform::GetParentMatrix() const
 {
-	if (m_parent != 0 && m_parent->HasChanged())
-		m_parentMatrix = m_parent->GetTransformation();
+	if (parent != 0 && parent->HasChanged())
+		parentMatrix = parent->GetTransformation();
 
-	return m_parentMatrix;
+	return parentMatrix;
 }

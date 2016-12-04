@@ -7,30 +7,30 @@
 class MappedValues
 {
 public:
-	inline void AddVector3f(const std::string& name, Vector3f value) { m_vector3fMap.insert(std::pair<std::string, Vector3f>(name, value)); }
-	inline void AddFloat(const std::string& name, float value) { m_floatMap.insert(std::pair<std::string, float>(name, value)); }
+	inline void AddVector3f(const std::string& _name, Vector3f _value) { vector3fMap.insert(std::pair<std::string, Vector3f>(_name, _value)); }
+	inline void AddFloat(const std::string& _name, float _value) { floatMap.insert(std::pair<std::string, float>(_name, _value)); }
 
-	inline Vector3f GetVector3f(const std::string& name) const
+	inline Vector3f GetVector3f(const std::string& _name) const
 	{
-		std::map<std::string, Vector3f>::const_iterator it = m_vector3fMap.find(name);
-		if (it != m_vector3fMap.end())
+		std::map<std::string, Vector3f>::const_iterator it = vector3fMap.find(_name);
+		if (it != vector3fMap.end())
 			return it->second;
 
 		return Vector3f(0, 0, 0);
 	}
 
-	inline float GetFloat(const std::string& name) const
+	inline float GetFloat(const std::string& _name) const
 	{
-		std::map<std::string, float>::const_iterator it = m_floatMap.find(name);
-		if (it != m_floatMap.end())
+		std::map<std::string, float>::const_iterator it = floatMap.find(_name);
+		if (it != floatMap.end())
 			return it->second;
 
 		return 0;
 	}
 protected:
 private:
-	std::map<std::string, Vector3f> m_vector3fMap;
-	std::map<std::string, float> m_floatMap;
+	std::map<std::string, Vector3f> vector3fMap;
+	std::map<std::string, float> floatMap;
 };
 
 #endif // MAPPEDVALUES_H_INCLUDED

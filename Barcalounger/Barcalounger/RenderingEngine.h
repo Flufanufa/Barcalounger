@@ -16,31 +16,31 @@ public:
 
 	void Render(GameObject* object);
 
-	inline Camera& GetMainCamera() { return *m_mainCamera; }
-	inline BaseLight* GetActiveLight() { return m_activeLight; }
+	inline Camera& GetMainCamera() { return *mainCamera; }
+	inline BaseLight* GetActiveLight() { return activeLight; }
 
-	inline void AddLight(BaseLight* light) { m_lights.push_back(light); }
-	inline void AddCamera(Camera* camera) { m_mainCamera = camera; }
+	inline void AddLight(BaseLight* _light) { lights.push_back(_light); }
+	inline void AddCamera(Camera* _camera) { mainCamera = _camera; }
 
-	inline unsigned int GetSamplerSlot(const std::string& samplerName) { return m_samplerMap[samplerName]; }
+	inline unsigned int GetSamplerSlot(const std::string& _samplerName) { return samplerMap[_samplerName]; }
 
-	virtual void UpdateUniformStruct(const Transform& transform, const Material& material, Shader* shader,
-		const std::string& uniformName, const std::string& uniformType)
+	virtual void UpdateUniformStruct(const Transform& _transform, const Material& _material, Shader* _shader,
+		const std::string& _uniformName, const std::string& _uniformType)
 	{
-		throw uniformType + " is not supported by the rendering engine";
+		throw _uniformType + " is not supported by the rendering engine";
 	}
 
 	virtual ~RenderingEngine();
 protected:
 private:
-	RenderingEngine(const RenderingEngine& other) {}
-	void operator=(const RenderingEngine& other) {}
+	RenderingEngine(const RenderingEngine& _other) {}
+	void operator=(const RenderingEngine& _other) {}
 
-	Camera* m_mainCamera;
-	BaseLight* m_activeLight;
-	Shader* m_defaultShader;
-	std::vector<BaseLight*> m_lights;
-	std::map<std::string, unsigned int> m_samplerMap;
+	Camera* mainCamera;
+	BaseLight* activeLight;
+	Shader* defaultShader;
+	std::vector<BaseLight*> lights;
+	std::map<std::string, unsigned int> samplerMap;
 };
 
 #endif // RENDERINGENGINE_H

@@ -26,9 +26,9 @@ public:
 	~ModelManager();
 	static ModelManager *getInstance();
 	aiScene *getScene();
-	int loadasset(const char* path);
-	void get_bounding_box(aiVector3D* min, aiVector3D* max);
-	void get_bounding_box_for_node(aiNode* nd, aiVector3D* min, aiVector3D* max, aiMatrix4x4* trafo);
+	int loadasset(const char* _path);
+	void get_bounding_box(aiVector3D* _min, aiVector3D* _max);
+	void get_bounding_box_for_node(aiNode* _nd, aiVector3D* _min, aiVector3D* _max, aiMatrix4x4* _trafo);
 	
 	VertexBufferObject vboModelData;
 	std::vector<int> iMeshStartIndices;

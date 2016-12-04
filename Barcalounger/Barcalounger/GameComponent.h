@@ -17,12 +17,12 @@ public:
 
 	virtual void AddToEngine(CoreEngine* engine) { }
 
-	inline void SetParent(GameObject* parent) { m_parent = parent; }
-	inline Transform& GetTransform() { return m_parent->GetTransform(); }
-	inline const Transform& GetTransform() const { return m_parent->GetTransform(); }
+	inline void SetParent(GameObject* _parent) { parent = _parent; }
+	inline Transform& GetTransform() { return parent->GetTransform(); }
+	inline const Transform& GetTransform() const { return parent->GetTransform(); }
 
 private:
-	GameObject* m_parent;
+	GameObject* parent;
 };
 
 #endif // GAMECOMPONENT_H_INCLUDED

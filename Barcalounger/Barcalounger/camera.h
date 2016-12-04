@@ -13,7 +13,7 @@ public:
 	virtual void AddToEngine(CoreEngine* engine);
 protected:
 private:
-	Matrix4f m_projection;
+	Matrix4f projection;
 };
 
 #endif

@@ -25,7 +25,7 @@ public:
 
 	void SetAttributes(int width, int height, double frameRate, Game* game);
 
-	inline RenderingEngine* GetRenderingEngine() { return m_renderingEngine; }
+	inline RenderingEngine* GetRenderingEngine() { return renderingEngine; }
 protected:
 private:
 
@@ -38,12 +38,12 @@ private:
 
 	void Run();
 
-	bool m_isRunning;
-	int m_width;
-	int m_height;
-	double m_frameTime;
-	Game* m_game;
-	RenderingEngine* m_renderingEngine;
+	bool isRunning;
+	int width;
+	int height;
+	double frameTime;
+	Game* game;
+	RenderingEngine* renderingEngine;
 };
 
 #endif // COREENGINE_H

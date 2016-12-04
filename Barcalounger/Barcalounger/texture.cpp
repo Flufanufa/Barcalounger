@@ -5,79 +5,79 @@
 
 std::map<std::string, TextureData*> Texture::s_resourceMap;
 
-TextureData::TextureData(GLenum textureTarget)
+TextureData::TextureData(GLenum _textureTarget)
 {
-	glGenTextures(1, &m_textureID);
-	m_textureTarget = textureTarget;
+	glGenTextures(1, &textureID);
+	textureTarget = _textureTarget;
 }
 
 TextureData::~TextureData()
 {
-	if (m_textureID) glDeleteTextures(1, &m_textureID);
+	if (textureID) glDeleteTextures(1, &textureID);
 }
 
 
-Texture::Texture(const std::string& fileName, GLenum textureTarget, GLfloat filter)
+Texture::Texture(const std::string& _fileName, GLenum _textureTarget, GLfloat _filter)
 {
-	m_fileName = fileName;
+	fileName = _fileName;
 
-	std::map<std::string, TextureData*>::const_iterator it = s_resourceMap.find(fileName);
+	std::map<std::string, TextureData*>::const_iterator it = s_resourceMap.find(_fileName);
 	if (it != s_resourceMap.end())
 	{
-		m_textureData = it->second;
-		m_textureData->AddReference();
+		textureData = it->second;
+		textureData->AddReference();
 	}
 	else
 	{
 		int x, y, bytesPerPixel;
-		unsigned char* data = stbi_load(("../resources/textures/" + fileName).c_str(), &x, &y, &bytesPerPixel, 4);
+		unsigned char* data = stbi_load(("../resources/textures/" + _fileName).c_str(), &x, &y, &bytesPerPixel, 4);
 
 		if (data == NULL)
 		{
-			std::cerr << "Unable to load texture: " << fileName << std::endl;
+			std::cerr << "Unable to load texture: " << _fileName << std::endl;
 		}
 
-		InitTexture(x, y, data, textureTarget, filter);
+		InitTexture(x, y, data, _textureTarget, _filter);
 		stbi_image_free(data);
 
-		s_resourceMap.insert(std::pair<std::string, TextureData*>(fileName, m_textureData));
+		s_resourceMap.insert(std::pair<std::string, TextureData*>(_fileName, textureData));
 	}
 }
 
-Texture::Texture(int width, int height, unsigned char* data, GLenum textureTarget, GLfloat filter)
+Texture::Texture(int _width, int _height, unsigned char* _data, GLenum _textureTarget, GLfloat _filter)
 {
-	m_fileName = "";
-	InitTexture(width, height, data, textureTarget, filter);
+	fileName = "";
+	InitTexture(_width, _height, _data, _textureTarget, _filter);
 }
 
 Texture::~Texture()
 {
-	if (m_textureData && m_textureData->RemoveReference())
+	if (textureData && textureData->RemoveReference())
 	{
-		if (m_fileName.length() > 0)
-			s_resourceMap.erase(m_fileName);
+		if (fileName.length() > 0)
+			s_resourceMap.erase(fileName);
 
-		delete m_textureData;
+		delete textureData;
 	}
 }
 
-void Texture::InitTexture(int width, int height, unsigned char* data, GLenum textureTarget, GLfloat filter)
+void Texture::InitTexture(int _width, int _height, unsigned char* _data, GLenum _textureTarget, GLfloat _filter)
 {
-	if (width > 0 && height > 0 && data != 0)
+	if (_width > 0 && _height > 0 && _data != 0)
 	{
-		m_textureData = new TextureData(textureTarget);
-		glBindTexture(textureTarget, m_textureData->GetTextureID());
+		textureData = new TextureData(_textureTarget);
+		glBindTexture(_textureTarget, textureData->GetTextureID());
 
-		glTexParameterf(textureTarget, GL_TEXTURE_MIN_FILTER, filter);
-		glTexParameterf(textureTarget, GL_TEXTURE_MAG_FILTER, filter);
+		glTexParameterf(_textureTarget, GL_TEXTURE_MIN_FILTER, _filter);
+		glTexParameterf(_textureTarget, GL_TEXTURE_MAG_FILTER, _filter);
 
-		glTexImage2D(textureTarget, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(_textureTarget, 0, GL_RGBA, _width, _height, 0, GL_RGBA, GL_UNSIGNED_BYTE, _data);
 	}
 }
 
-void Texture::Bind(unsigned int unit) const
+void Texture::Bind(unsigned int _unit) const
 {
-	assert(unit >= 0 && unit <= 31);
-	glActiveTexture(GL_TEXTURE0 + unit);
-	glBindTexture(m_textureData->GetTextureTarget(), m_textureData->GetTextureID());
+	assert(_unit >= 0 && _unit <= 31);
+	glActiveTexture(GL_TEXTURE0 + _unit);
+	glBindTexture(textureData->GetTextureTarget(), textureData->GetTextureID());
 }

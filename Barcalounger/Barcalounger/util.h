@@ -31,7 +31,7 @@
 namespace Util
 {
 	void Sleep(int milliseconds);
-	std::vector<std::string> Split(const std::string &s, char delim);
+	std::vector<std::string> Split(const std::string &_s, char _delim);
 };
 
 #endif

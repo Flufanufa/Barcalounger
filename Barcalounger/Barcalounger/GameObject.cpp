@@ -4,85 +4,85 @@
 
 GameObject::~GameObject()
 {
-	for (unsigned int i = 0; i < m_components.size(); i++)
-		if (m_components[i])
-			delete m_components[i];
+	for (unsigned int i = 0; i < components.size(); i++)
+		if (components[i])
+			delete components[i];
 
-	for (unsigned int i = 0; i < m_children.size(); i++)
-		if (m_children[i])
-			delete m_children[i];
+	for (unsigned int i = 0; i < children.size(); i++)
+		if (children[i])
+			delete children[i];
 }
 
-GameObject* GameObject::AddChild(GameObject* child)
+GameObject* GameObject::AddChild(GameObject* _child)
 {
-	m_children.push_back(child);
-	child->GetTransform().SetParent(&m_transform);
-	child->SetEngine(m_coreEngine);
+	children.push_back(_child);
+	_child->GetTransform().SetParent(&transform);
+	_child->SetEngine(coreEngine);
 	return this;
 }
 
-GameObject* GameObject::AddComponent(GameComponent* component)
+GameObject* GameObject::AddComponent(GameComponent* _component)
 {
-	m_components.push_back(component);
-	component->SetParent(this);
+	components.push_back(_component);
+	_component->SetParent(this);
 	return this;
 }
 
-void GameObject::InputAll(float delta)
+void GameObject::InputAll(float _delta)
 {
-	Input(delta);
+	Input(_delta);
 
-	for (unsigned int i = 0; i < m_children.size(); i++)
-		m_children[i]->InputAll(delta);
+	for (unsigned int i = 0; i < children.size(); i++)
+		children[i]->InputAll(_delta);
 }
 
-void GameObject::UpdateAll(float delta)
+void GameObject::UpdateAll(float _delta)
 {
-	Update(delta);
+	Update(_delta);
 
-	for (unsigned int i = 0; i < m_children.size(); i++)
-		m_children[i]->UpdateAll(delta);
+	for (unsigned int i = 0; i < children.size(); i++)
+		children[i]->UpdateAll(_delta);
 }
 
-void GameObject::RenderAll(Shader* shader, RenderingEngine* renderingEngine)
+void GameObject::RenderAll(Shader* _shader, RenderingEngine* _renderingEngine)
 {
-	Render(shader, renderingEngine);
+	Render(_shader, _renderingEngine);
 
-	for (unsigned int i = 0; i < m_children.size(); i++)
-		m_children[i]->RenderAll(shader, renderingEngine);
+	for (unsigned int i = 0; i < children.size(); i++)
+		children[i]->RenderAll(_shader, _renderingEngine);
 }
 
-void GameObject::Input(float delta)
+void GameObject::Input(float _delta)
 {
-	m_transform.Update();
+	transform.Update();
 
-	for (unsigned int i = 0; i < m_components.size(); i++)
-		m_components[i]->Input(delta);
+	for (unsigned int i = 0; i < components.size(); i++)
+		components[i]->Input(_delta);
 }
 
-void GameObject::Update(float delta)
+void GameObject::Update(float _delta)
 {
-	for (unsigned int i = 0; i < m_components.size(); i++)
-		m_components[i]->Update(delta);
+	for (unsigned int i = 0; i < components.size(); i++)
+		components[i]->Update(_delta);
 }
 
-void GameObject::Render(Shader* shader, RenderingEngine* renderingEngine)
+void GameObject::Render(Shader* _shader, RenderingEngine* _renderingEngine)
 {
-	for (unsigned int i = 0; i < m_components.size(); i++)
-		m_components[i]->Render(shader, renderingEngine);
+	for (unsigned int i = 0; i < components.size(); i++)
+		components[i]->Render(_shader, _renderingEngine);
 }
 
-void GameObject::SetEngine(CoreEngine* engine)
+void GameObject::SetEngine(CoreEngine* _engine)
 {
-	if (m_coreEngine != engine)
+	if (coreEngine != _engine)
 	{
-		m_coreEngine = engine;
+		coreEngine = _engine;
 
-		for (unsigned int i = 0; i < m_components.size(); i++)
-			m_components[i]->AddToEngine(engine);
+		for (unsigned int i = 0; i < components.size(); i++)
+			components[i]->AddToEngine(_engine);
 
-		for (unsigned int i = 0; i < m_children.size(); i++)
-			m_children[i]->SetEngine(engine);
+		for (unsigned int i = 0; i < children.size(); i++)
+			children[i]->SetEngine(_engine);
 	}
 }
 
@@ -90,9 +90,9 @@ std::vector<GameObject*> GameObject::GetAllAttached()
 {
 	std::vector<GameObject*> result;
 
-	for (unsigned int i = 0; i < m_children.size(); i++)
+	for (unsigned int i = 0; i < children.size(); i++)
 	{
-		std::vector<GameObject*> childObjects = m_children[i]->GetAllAttached();
+		std::vector<GameObject*> childObjects = children[i]->GetAllAttached();
 		result.insert(result.end(), childObjects.begin(), childObjects.end());
 	}
 

@@ -11,23 +11,23 @@ public:
 	virtual ~Game() {}
 
 	//CHANGE ADDTOSCENE BACK TO PROTECTED
-	void AddToScene(GameObject* child) { m_root.AddChild(child); }
+	void AddToScene(GameObject* child) { root.AddChild(child); }
 
 	virtual void Init();
 	void Input(float delta);
 	void Update(float delta);
 	void Render(RenderingEngine* renderingEngine);
 
-	inline GameObject& GetRoot() { return m_root; }
+	inline GameObject& GetRoot() { return root; }
 
-	inline void SetEngine(CoreEngine* engine) { m_root.SetEngine(engine); }
+	inline void SetEngine(CoreEngine* engine) { root.SetEngine(engine); }
 protected:
 	
 private:
 	Game(Game& game) {}
 	void operator=(Game& game) {}
 
-	GameObject m_root;
+	GameObject root;
 };
 
 #endif

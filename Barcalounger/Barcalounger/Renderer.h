@@ -1,3 +1,5 @@
+/* //NO LONGER USED
+
 #ifndef renderer
 #define renderer
 #pragma once
@@ -52,3 +54,4 @@ public:
 };
 
 #endif // !renderer
+*/

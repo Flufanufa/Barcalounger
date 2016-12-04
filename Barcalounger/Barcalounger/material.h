@@ -15,33 +15,33 @@ public:
 	{
 		//Delete all textures
 		std::map<std::string, Texture*>::iterator it;
-		for (it = m_textureMap.begin(); it != m_textureMap.end(); it++)
+		for (it = textureMap.begin(); it != textureMap.end(); it++)
 			if (it->second) delete it->second;
 	}
 
-	Material(Texture* diffuse, float specularIntensity, float specularPower)
+	Material(Texture* _diffuse, float _specularIntensity, float _specularPower)
 	{
-		AddTexture("diffuse", diffuse);
-		AddFloat("specularIntensity", specularIntensity);
-		AddFloat("specularPower", specularPower);
+		AddTexture("diffuse", _diffuse);
+		AddFloat("specularIntensity", _specularIntensity);
+		AddFloat("specularPower", _specularPower);
 	}
 
-	inline void AddTexture(const std::string& name, Texture* value) { m_textureMap.insert(std::pair<std::string, Texture*>(name, value)); }
+	inline void AddTexture(const std::string& _name, Texture* _value) { textureMap.insert(std::pair<std::string, Texture*>(_name, _value)); }
 
-	inline Texture* GetTexture(const std::string& name) const
+	inline Texture* GetTexture(const std::string& _name) const
 	{
-		std::map<std::string, Texture*>::const_iterator it = m_textureMap.find(name);
-		if (it != m_textureMap.end())
+		std::map<std::string, Texture*>::const_iterator it = textureMap.find(_name);
+		if (it != textureMap.end())
 			return it->second;
 
 		return 0;
 	}
 protected:
 private:
-	Material(const Material& other) {}
-	void operator=(const Material& other) {}
+	Material(const Material& _other) {}
+	void operator=(const Material& _other) {}
 
-	std::map<std::string, Texture*> m_textureMap;
+	std::map<std::string, Texture*> textureMap;
 };
 
 #endif

@@ -2,8 +2,8 @@
 #include "renderingEngine.h"
 #include "Engine.h"
 
-Camera::Camera(const Matrix4f& projection) :
-	m_projection(projection) {}
+Camera::Camera(const Matrix4f& _projection) :
+	projection(_projection) {}
 
 Matrix4f Camera::GetViewProjection() const
 {
@@ -12,10 +12,10 @@ Matrix4f Camera::GetViewProjection() const
 
 	cameraTranslation.InitTranslation(GetTransform().GetTransformedPos() * -1);
 
-	return m_projection * cameraRotation * cameraTranslation;
+	return projection * cameraRotation * cameraTranslation;
 }
 
-void Camera::AddToEngine(CoreEngine* engine)
+void Camera::AddToEngine(CoreEngine* _engine)
 {
-	engine->GetRenderingEngine()->AddCamera(this);
+	_engine->GetRenderingEngine()->AddCamera(this);
 }

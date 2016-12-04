@@ -1,4 +1,6 @@
-/*#ifndef WINDOW_H
+/*
+//NO LONGER BEING USED
+#ifndef WINDOW_H
 #define WINDOW_H
 #pragma once
 #include <OpenGL\include\glew.h>

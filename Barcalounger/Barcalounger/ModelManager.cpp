@@ -19,10 +19,10 @@ ModelManager *ModelManager::getInstance() {
 	return instance;
 }
 
-int ModelManager::loadasset(const char* path)
+int ModelManager::loadasset(const char* _path)
 {
 	Assimp::Importer importer;
-	scene = importer.ReadFile(path, aiProcess_Triangulate); //ensures that all points are in sets of 3
+	scene = importer.ReadFile(_path, aiProcess_Triangulate); //ensures that all points are in sets of 3
 	if (!scene) { 
 		LogManager *logInstance = LogManager::getInstance();
 		logInstance->error("model failed to load");
@@ -71,45 +71,45 @@ int ModelManager::loadasset(const char* path)
 	return 0;
 }
 
-void ModelManager::get_bounding_box(aiVector3D* min, aiVector3D* max)
+void ModelManager::get_bounding_box(aiVector3D* _min, aiVector3D* _max)
 {
 	aiMatrix4x4 trafo;
 	aiIdentityMatrix4(&trafo);
 
-	min->x = min->y = min->z = 50.0f;
-	max->x = max->y = max->z = -50.0f;
-	get_bounding_box_for_node(scene->mRootNode, min, max, &trafo);
+	_min->x = _min->y = _min->z = 50.0f;
+	_max->x = _max->y = _max->z = -50.0f;
+	get_bounding_box_for_node(scene->mRootNode, _min, _max, &trafo);
 }
 
-void ModelManager::get_bounding_box_for_node(aiNode* nd, aiVector3D* min, aiVector3D* max, aiMatrix4x4* trafo) {
+void ModelManager::get_bounding_box_for_node(aiNode* _nd, aiVector3D* _min, aiVector3D* _max, aiMatrix4x4* _trafo) {
 	
 	aiMatrix4x4 prev;
 	unsigned int n = 0, t;
 
-	prev = *trafo;
-	aiMultiplyMatrix4(trafo, &nd->mTransformation);
+	prev = *_trafo;
+	aiMultiplyMatrix4(_trafo, &_nd->mTransformation);
 
-	for (; n < nd->mNumMeshes; ++n) {
-		const struct aiMesh* mesh = scene->mMeshes[nd->mMeshes[n]];
+	for (; n < _nd->mNumMeshes; ++n) {
+		const struct aiMesh* mesh = scene->mMeshes[_nd->mMeshes[n]];
 		for (t = 0; t < mesh->mNumVertices; ++t) {
 
 			aiVector3D tmp = mesh->mVertices[t];
-			aiTransformVecByMatrix4(&tmp, trafo);
+			aiTransformVecByMatrix4(&tmp, _trafo);
 
-			min->x = aisgl_min(min->x, tmp.x);
-			min->y = aisgl_min(min->y, tmp.y);
-			min->z = aisgl_min(min->z, tmp.z);
+			_min->x = aisgl_min(_min->x, tmp.x);
+			_min->y = aisgl_min(_min->y, tmp.y);
+			_min->z = aisgl_min(_min->z, tmp.z);
 
-			max->x = aisgl_max(max->x, tmp.x);
-			max->y = aisgl_max(max->y, tmp.y);
-			max->z = aisgl_max(max->z, tmp.z);
+			_max->x = aisgl_max(_max->x, tmp.x);
+			_max->y = aisgl_max(_max->y, tmp.y);
+			_max->z = aisgl_max(_max->z, tmp.z);
 		}
 	}
 
-	for (n = 0; n < nd->mNumChildren; ++n) {
-		get_bounding_box_for_node(nd->mChildren[n], min, max, trafo);
+	for (n = 0; n < _nd->mNumChildren; ++n) {
+		get_bounding_box_for_node(_nd->mChildren[n], _min, _max, _trafo);
 	}
-	*trafo = prev;
+	*_trafo = prev;
 }
 
 

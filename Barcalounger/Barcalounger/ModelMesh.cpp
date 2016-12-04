@@ -11,49 +11,49 @@
 
 std::map<std::string, MeshData*> Mesh::s_resourceMap;
 
-MeshData::MeshData(int indexSize) : ReferenceCounter()
+MeshData::MeshData(int _indexSize) : ReferenceCounter()
 {
-	glGenBuffers(1, &m_vbo);
-	glGenBuffers(1, &m_ibo);
-	m_size = indexSize;
+	glGenBuffers(1, &vbo);
+	glGenBuffers(1, &ibo);
+	size = _indexSize;
 }
 
 MeshData::~MeshData()
 {
-	if (m_vbo) glDeleteBuffers(1, &m_vbo);
-	if (m_ibo) glDeleteBuffers(1, &m_ibo);
+	if (vbo) glDeleteBuffers(1, &vbo);
+	if (ibo) glDeleteBuffers(1, &ibo);
 }
 
 
-Mesh::Mesh(Vertex* vertices, int vertSize, int* indices, int indexSize, bool calcNormals)
+Mesh::Mesh(Vertex* _vertices, int _vertSize, int* _indices, int _indexSize, bool _calcNormals)
 {
-	m_fileName = "";
-	InitMesh(vertices, vertSize, indices, indexSize, calcNormals);
+	fileName = "";
+	InitMesh(_vertices, _vertSize, _indices, _indexSize, _calcNormals);
 }
 
-Mesh::Mesh(const std::string& fileName)
+Mesh::Mesh(const std::string& _fileName)
 {
-	m_fileName = fileName;
-	m_meshData = 0;
+	fileName = _fileName;
+	meshData = 0;
 
-	std::map<std::string, MeshData*>::const_iterator it = s_resourceMap.find(fileName);
+	std::map<std::string, MeshData*>::const_iterator it = s_resourceMap.find(_fileName);
 	if (it != s_resourceMap.end())
 	{
-		m_meshData = it->second;
-		m_meshData->AddReference();
+		meshData = it->second;
+		meshData->AddReference();
 	}
 	else
 	{
 		Assimp::Importer importer;
 
-		const aiScene* scene = importer.ReadFile(fileName.c_str(),
+		const aiScene* scene = importer.ReadFile(_fileName.c_str(),
 			aiProcess_Triangulate |
 			aiProcess_GenSmoothNormals |
 			aiProcess_FlipUVs);
 
 		if (!scene)
 		{
-			std::cout << "Mesh load failed!: " << fileName << std::endl;
+			std::cout << "Mesh load failed!: " << _fileName << std::endl;
 			assert(0 == 0);
 		}
 
@@ -87,33 +87,33 @@ Mesh::Mesh(const std::string& fileName)
 
 		InitMesh(&vertices[0], vertices.size(), (int*)&indices[0], indices.size(), false);
 
-		s_resourceMap.insert(std::pair<std::string, MeshData*>(fileName, m_meshData));
+		s_resourceMap.insert(std::pair<std::string, MeshData*>(_fileName, meshData));
 	}
 }
 
 Mesh::~Mesh()
 {
-	if (m_meshData && m_meshData->RemoveReference())
+	if (meshData && meshData->RemoveReference())
 	{
-		if (m_fileName.length() > 0)
-			s_resourceMap.erase(m_fileName);
+		if (fileName.length() > 0)
+			s_resourceMap.erase(fileName);
 
-		delete m_meshData;
+		delete meshData;
 	}
 }
 
-void Mesh::InitMesh(Vertex* vertices, int vertSize, int* indices, int indexSize, bool calcNormals)
+void Mesh::InitMesh(Vertex* _vertices, int _vertSize, int* _indices, int _indexSize, bool _calcNormals)
 {
-	m_meshData = new MeshData(indexSize);
+	meshData = new MeshData(_indexSize);
 
-	if (calcNormals)
-		this->CalcNormals(vertices, vertSize, indices, indexSize);
+	if (_calcNormals)
+		this->CalcNormals(_vertices, _vertSize, _indices, _indexSize);
 
-	glBindBuffer(GL_ARRAY_BUFFER, m_meshData->GetVBO());
-	glBufferData(GL_ARRAY_BUFFER, vertSize * sizeof(Vertex), vertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, meshData->GetVBO());
+	glBufferData(GL_ARRAY_BUFFER, _vertSize * sizeof(Vertex), _vertices, GL_STATIC_DRAW);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_meshData->GetIBO());
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexSize * sizeof(int), indices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshData->GetIBO());
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indexSize * sizeof(int), _indices, GL_STATIC_DRAW);
 }
 
 void Mesh::Draw() const
@@ -122,37 +122,37 @@ void Mesh::Draw() const
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
 
-	glBindBuffer(GL_ARRAY_BUFFER, m_meshData->GetVBO());
+	glBindBuffer(GL_ARRAY_BUFFER, meshData->GetVBO());
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)sizeof(Vector3f));
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(sizeof(Vector3f) + sizeof(Vector2f)));
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_meshData->GetIBO());
-	glDrawElements(GL_TRIANGLES, m_meshData->GetSize(), GL_UNSIGNED_INT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshData->GetIBO());
+	glDrawElements(GL_TRIANGLES, meshData->GetSize(), GL_UNSIGNED_INT, 0);
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
 }
 
-void Mesh::CalcNormals(Vertex* vertices, int vertSize, int* indices, int indexSize)
+void Mesh::CalcNormals(Vertex* _vertices, int _vertSize, int* _indices, int _indexSize)
 {
-	for (int i = 0; i < indexSize; i += 3)
+	for (int i = 0; i < _indexSize; i += 3)
 	{
-		int i0 = indices[i];
-		int i1 = indices[i + 1];
-		int i2 = indices[i + 2];
+		int i0 = _indices[i];
+		int i1 = _indices[i + 1];
+		int i2 = _indices[i + 2];
 
-		Vector3f v1 = vertices[i1].pos - vertices[i0].pos;
-		Vector3f v2 = vertices[i2].pos - vertices[i0].pos;
+		Vector3f v1 = _vertices[i1].pos - _vertices[i0].pos;
+		Vector3f v2 = _vertices[i2].pos - _vertices[i0].pos;
 
 		Vector3f normal = v1.Cross(v2).Normalized();
 
-		vertices[i0].normal += normal;
-		vertices[i1].normal += normal;
-		vertices[i2].normal += normal;
+		_vertices[i0].normal += normal;
+		_vertices[i1].normal += normal;
+		_vertices[i2].normal += normal;
 	}
 
-	for (int i = 0; i < vertSize; i++)
-		vertices[i].normal = vertices[i].normal.Normalized();
+	for (int i = 0; i < _vertSize; i++)
+		_vertices[i].normal = _vertices[i].normal.Normalized();
 }

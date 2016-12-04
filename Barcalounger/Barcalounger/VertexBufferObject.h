@@ -16,17 +16,17 @@ object.
 class VertexBufferObject
 {
 public:
-	void CreateVBO(int a_iSize = 0);
+	void CreateVBO(int _a_iSize = 0);
 	void DeleteVBO();
 
-	void* MapBufferToMemory(int iUsageHint);
-	void* MapSubBufferToMemory(int iUsageHint, UINT uiOffset, UINT uiLength);
+	void* MapBufferToMemory(int _iUsageHint);
+	void* MapSubBufferToMemory(int _iUsageHint, UINT _uiOffset, UINT _uiLength);
 	void UnmapBuffer();
 
-	void BindVBO(int a_iBufferType = GL_ARRAY_BUFFER);
-	void UploadDataToGPU(int iUsageHint);
+	void BindVBO(int _a_iBufferType = GL_ARRAY_BUFFER);
+	void UploadDataToGPU(int _iUsageHint);
 
-	void AddData(void* ptrData, UINT uiDataSize);
+	void AddData(void* _ptrData, UINT _uiDataSize);
 
 	void* GetDataPointer();
 	UINT GetBufferID();

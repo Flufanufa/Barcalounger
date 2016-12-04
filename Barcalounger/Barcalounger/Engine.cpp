@@ -24,48 +24,48 @@ CoreEngine::CoreEngine() {
 	InputInstance = Input::getInstance();
 }
 
-void CoreEngine::SetAttributes(int width, int height, double frameRate, Game* game) {
-	m_isRunning = false;
-	m_width = width;
-	m_height = height;
-	m_frameTime = (1.0 / frameRate);
-	m_game = game;
-	m_renderingEngine = NULL;
+void CoreEngine::SetAttributes(int _width, int _height, double _frameRate, Game* _game) {
+	isRunning = false;
+	width = _width;
+	height = _height;
+	frameTime = (1.0 / _frameRate);
+	game = _game;
+	renderingEngine = NULL;
 	
 	
-	m_game->SetEngine(this);
+	game->SetEngine(this);
 }
 
 CoreEngine::~CoreEngine()
 {
 	WindowInstance->Dispose();
-	if (m_renderingEngine) delete m_renderingEngine;
+	if (renderingEngine) delete renderingEngine;
 }
 
-bool CoreEngine::CreateWindowWithAll(int width, int height, const std::string& gameName) {
-	bool isInitialized = WindowInstance->CreateWindowWithAll(width, height, gameName);
+bool CoreEngine::CreateWindowWithAll(int _width, int _height, const std::string& _gameName) {
+	bool isInitialized = WindowInstance->CreateWindowWithAll(_width, _height, _gameName);
 	RenderUtil::InitGraphics();
-	m_renderingEngine = new RenderingEngine();
+	renderingEngine = new RenderingEngine();
 	
 	return isInitialized;
 }
 
-bool CoreEngine::CreateWindowWithName(std::string& gameName)
+bool CoreEngine::CreateWindowWithName(std::string& _gameName)
 {
-	return CreateWindowWithAll(m_width, m_height, gameName);
+	return CreateWindowWithAll(width, height, _gameName);
 }
 
-bool CoreEngine::CreateWindowWithDim(int width, int height) {
-	return CreateWindowWithAll(width, height, "Barcalouger Engine");
+bool CoreEngine::CreateWindowWithDim(int _width, int _height) {
+	return CreateWindowWithAll(_width, _height, "Barcalouger Engine");
 }
 
 bool CoreEngine::CreateWindowDefault() {
-	return CreateWindowWithAll(m_width, m_height, "Barcalounger Engine");
+	return CreateWindowWithAll(width, height, "Barcalounger Engine");
 }
 
 void CoreEngine::Start()
 {
-	if (m_isRunning)
+	if (isRunning)
 		return;
 
 	Run();
@@ -73,24 +73,24 @@ void CoreEngine::Start()
 
 void CoreEngine::Stop()
 {
-	if (!m_isRunning)
+	if (!isRunning)
 		return;
 
-	m_isRunning = false;
+	isRunning = false;
 }
 
 void CoreEngine::Run()
 {
-	m_isRunning = true;
+	isRunning = true;
 
-	m_game->Init();
+	game->Init();
 
 	double lastTime = Time::GetTime();
 	double unprocessedTime = 0;
 	double frameCounter = 0;
 	int frames = 0;
 
-	while (m_isRunning)
+	while (isRunning)
 	{
 		bool render = false;
 
@@ -108,7 +108,7 @@ void CoreEngine::Run()
 			frameCounter = 0;
 		}
 
-		while (unprocessedTime > m_frameTime)
+		while (unprocessedTime > frameTime)
 		{
 			render = true;
 			
@@ -132,15 +132,15 @@ void CoreEngine::Run()
 				Stop();
 			}
 
-			m_game->Input((float)m_frameTime);
-			m_game->Update((float)m_frameTime);
+			game->Input((float)frameTime);
+			game->Update((float)frameTime);
 
-			unprocessedTime -= m_frameTime;
+			unprocessedTime -= frameTime;
 		}
 
 		if (render)
 		{
-			m_game->Render(m_renderingEngine);
+			game->Render(renderingEngine);
 			WindowInstance->Render();
 			frames++;
 		}

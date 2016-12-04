@@ -19,11 +19,11 @@ Result:	Creates vertex buffer object.
 
 /*---------------------------------------------*/
 
-void VertexBufferObject::CreateVBO(int a_iSize)
+void VertexBufferObject::CreateVBO(int _a_iSize)
 {
 	glGenBuffers(1, &uiBuffer);
-	data.reserve(a_iSize);
-	iSize = a_iSize;
+	data.reserve(_a_iSize);
+	iSize = _a_iSize;
 	iCurrentSize = 0;
 }
 
@@ -55,10 +55,10 @@ returns pointer to data.
 
 /*---------------------------------------------*/
 
-void* VertexBufferObject::MapBufferToMemory(int iUsageHint)
+void* VertexBufferObject::MapBufferToMemory(int _iUsageHint)
 {
 	if (!bDataUploaded)return NULL;
-	void* ptrRes = glMapBuffer(iBufferType, iUsageHint);
+	void* ptrRes = glMapBuffer(iBufferType, _iUsageHint);
 	return ptrRes;
 }
 
@@ -75,10 +75,10 @@ Result:	Maps specified part of buffer to memory.
 
 /*---------------------------------------------*/
 
-void* VertexBufferObject::MapSubBufferToMemory(int iUsageHint, UINT uiOffset, UINT uiLength)
+void* VertexBufferObject::MapSubBufferToMemory(int _iUsageHint, UINT _uiOffset, UINT _uiLength)
 {
 	if (!bDataUploaded)return NULL;
-	void* ptrRes = glMapBufferRange(iBufferType, uiOffset, uiLength, iUsageHint);
+	void* ptrRes = glMapBufferRange(iBufferType, _uiOffset, _uiLength, _iUsageHint);
 	return ptrRes;
 }
 
@@ -107,9 +107,9 @@ Result:	Binds this VBO.
 
 /*---------------------------------------------*/
 
-void VertexBufferObject::BindVBO(int a_iBufferType)
+void VertexBufferObject::BindVBO(int _a_iBufferType)
 {
-	iBufferType = a_iBufferType;
+	iBufferType = _a_iBufferType;
 	glBindBuffer(iBufferType, uiBuffer);
 }
 
@@ -123,9 +123,9 @@ Result:	Sends data to GPU.
 
 /*---------------------------------------------*/
 
-void VertexBufferObject::UploadDataToGPU(int iDrawingHint)
+void VertexBufferObject::UploadDataToGPU(int _iDrawingHint)
 {
-	glBufferData(iBufferType, data.size(), &data[0], iDrawingHint);
+	glBufferData(iBufferType, data.size(), &data[0], _iDrawingHint);
 	bDataUploaded = true;
 	data.clear();
 }
@@ -141,10 +141,10 @@ Result:	Adds arbitrary data to VBO.
 
 /*---------------------------------------------*/
 
-void VertexBufferObject::AddData(void* ptrData, UINT uiDataSize)
+void VertexBufferObject::AddData(void* _ptrData, UINT _uiDataSize)
 {
-	data.insert(data.end(), (BYTE*)ptrData, (BYTE*)ptrData + uiDataSize);
-	iCurrentSize += uiDataSize;
+	data.insert(data.end(), (BYTE*)_ptrData, (BYTE*)_ptrData + _uiDataSize);
+	iCurrentSize += _uiDataSize;
 }
 
 /*-----------------------------------------------

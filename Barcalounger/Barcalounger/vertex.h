@@ -9,10 +9,10 @@ struct Vertex
 	Vector2f texCoord;
 	Vector3f normal;
 
-	Vertex(Vector3f pos, Vector2f texCoord = Vector2f(0, 0), Vector3f normal = Vector3f(0, 0, 0)) :
-		pos(pos),
-		texCoord(texCoord),
-		normal(normal) {}
+	Vertex(Vector3f _pos, Vector2f _texCoord = Vector2f(0, 0), Vector3f _normal = Vector3f(0, 0, 0)) :
+		pos(_pos),
+		texCoord(_texCoord),
+		normal(_normal) {}
 };
 
 #endif

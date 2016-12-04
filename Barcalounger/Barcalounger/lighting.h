@@ -12,27 +12,27 @@ public:
 	Vector3f color;
 	float intensity;
 
-	BaseLight(const Vector3f& color = Vector3f(0, 0, 0), float intensity = 0) :
-		color(color),
-		intensity(intensity),
-		m_shader(0) {}
+	BaseLight(const Vector3f& _color = Vector3f(0, 0, 0), float _intensity = 0) :
+		color(_color),
+		intensity(_intensity),
+		shader(0) {}
 
 	virtual ~BaseLight();
 
 	virtual void AddToEngine(CoreEngine* engine);
-	inline Shader* GetShader() { return m_shader; }
+	inline Shader* GetShader() { return shader; }
 
-	void SetShader(Shader* shader);
+	void SetShader(Shader* _shader);
 private:
-	BaseLight(BaseLight& other) {}
-	void operator=(BaseLight& other) {}
+	BaseLight(BaseLight& _other) {}
+	void operator=(BaseLight& _other) {}
 
-	Shader* m_shader;
+	Shader* shader;
 };
 
 struct DirectionalLight : public BaseLight
 {
-	DirectionalLight(const Vector3f& color = Vector3f(0, 0, 0), float intensity = 0);
+	DirectionalLight(const Vector3f& _color = Vector3f(0, 0, 0), float _intensity = 0);
 };
 
 struct Attenuation
@@ -41,10 +41,10 @@ struct Attenuation
 	float linear;
 	float exponent;
 
-	Attenuation(float constant = 0, float linear = 0, float exponent = 1) :
-		constant(constant),
-		linear(linear),
-		exponent(exponent) {}
+	Attenuation(float _constant = 0, float _linear = 0, float _exponent = 1) :
+		constant(_constant),
+		linear(_linear),
+		exponent(_exponent) {}
 };
 
 struct PointLight : public BaseLight
@@ -52,14 +52,14 @@ struct PointLight : public BaseLight
 	Attenuation atten;
 	float range;
 
-	PointLight(const Vector3f& color = Vector3f(0, 0, 0), float intensity = 0, const Attenuation& atten = Attenuation());
+	PointLight(const Vector3f& _color = Vector3f(0, 0, 0), float _intensity = 0, const Attenuation& _atten = Attenuation());
 };
 
 struct SpotLight : public PointLight
 {
 	float cutoff;
 
-	SpotLight(const Vector3f& color = Vector3f(0, 0, 0), float intensity = 0, const Attenuation& atten = Attenuation(), float cutoff = 0);
+	SpotLight(const Vector3f& _color = Vector3f(0, 0, 0), float _intensity = 0, const Attenuation& _atten = Attenuation(), float cutoff = 0);
 };
 
 #endif

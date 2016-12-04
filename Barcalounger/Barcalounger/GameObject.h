@@ -11,7 +11,7 @@ class RenderingEngine;
 class GameObject
 {
 public:
-	GameObject() { m_coreEngine = 0; }
+	GameObject() { coreEngine = 0; }
 	virtual ~GameObject();
 
 	GameObject* AddChild(GameObject* child);
@@ -23,7 +23,7 @@ public:
 
 	std::vector<GameObject*> GetAllAttached();
 
-	inline Transform& GetTransform() { return m_transform; }
+	inline Transform& GetTransform() { return transform; }
 	void SetEngine(CoreEngine* engine);
 protected:
 private:
@@ -31,10 +31,10 @@ private:
 	void Update(float delta);
 	void Render(Shader* shader, RenderingEngine* renderingEngine);
 
-	std::vector<GameObject*> m_children;
-	std::vector<GameComponent*> m_components;
-	Transform m_transform;
-	CoreEngine* m_coreEngine;
+	std::vector<GameObject*> children;
+	std::vector<GameComponent*> components;
+	Transform transform;
+	CoreEngine* coreEngine;
 };
 
 #endif // GAMEOBJECT_H

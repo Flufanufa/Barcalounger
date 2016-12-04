@@ -6,16 +6,16 @@ class ReferenceCounter
 public:
 	ReferenceCounter()
 	{
-		m_refCount = 1;
+		refCount = 1;
 	}
 
-	inline int GetReferenceCount() { return m_refCount; }
+	inline int GetReferenceCount() { return refCount; }
 
-	inline void AddReference() { m_refCount++; }
-	inline bool RemoveReference() { m_refCount--; return m_refCount == 0; }
+	inline void AddReference() { refCount++; }
+	inline bool RemoveReference() { refCount--; return refCount == 0; }
 protected:
 private:
-	int m_refCount;
+	int refCount;
 };
 
 #endif // REFERENCECOUNTER_H

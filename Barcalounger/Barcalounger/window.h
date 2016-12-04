@@ -9,7 +9,7 @@ public:
 	static Window* getInstance();
 
 
-	bool CreateWindowWithAll(int width, int height, const std::string& gameName);
+	bool CreateWindowWithAll(int _width, int _height, const std::string& _gameName);
 	void Render();
 	void Dispose();
 
@@ -19,7 +19,7 @@ public:
 	float GetAspect();
 	const std::string& GetTitle();
 
-	void SetFullScreen(bool value);
+	void SetFullScreen(bool _value);
 
 	
 protected:

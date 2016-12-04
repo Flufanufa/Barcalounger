@@ -1,5 +1,5 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(367,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
-Barcalounger.lib(window.obj) : warning LNK4217: locally defined symbol _glewInit@0 imported in function "public: bool __thiscall Window::CreateWindowWithAll(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?CreateWindowWithAll@Window@@QAE_NHHABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+  main.cpp
 Barcalounger.lib(texture.obj) : warning LNK4049: locally defined symbol ___glewActiveTexture imported
 Barcalounger.lib(ModelMesh.obj) : warning LNK4049: locally defined symbol ___glewBindBuffer imported
 Barcalounger.lib(ModelMesh.obj) : warning LNK4049: locally defined symbol ___glewBufferData imported
@@ -29,6 +29,7 @@ Barcalounger.lib(shader.obj) : warning LNK4049: locally defined symbol ___glewUn
 Barcalounger.lib(shader.obj) : warning LNK4049: locally defined symbol ___glewUniformMatrix4fv imported
 Barcalounger.lib(shader.obj) : warning LNK4049: locally defined symbol ___glewUseProgram imported
 Barcalounger.lib(shader.obj) : warning LNK4049: locally defined symbol ___glewValidateProgram imported
+Barcalounger.lib(window.obj) : warning LNK4217: locally defined symbol _glewInit@0 imported in function "public: bool __thiscall Window::CreateWindowWithAll(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?CreateWindowWithAll@Window@@QAE_NHHABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
 glew_static_vs2010_d.lib(glew.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'glew_static_vs2010_d.lib(glew.obj)' or at 'C:\GameDev\Barcalounger\Barcalounger\Barcalounger\Debug\vc100.pdb'; linking object as if no debug info
   Test1.vcxproj -> C:\GameDev\Barcalounger\Barcalounger\Barcalounger\Debug\Test1.exe
   Test1.vcxproj -> C:\GameDev\Barcalounger\Barcalounger\Barcalounger\Debug\Test1.pdb (Partial PDB)

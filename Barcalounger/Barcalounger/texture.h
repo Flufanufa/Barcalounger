@@ -9,39 +9,39 @@
 class TextureData : public ReferenceCounter
 {
 public:
-	TextureData(GLenum textureTarget);
+	TextureData(GLenum _textureTarget);
 	virtual ~TextureData();
 
-	inline GLenum GetTextureTarget() { return m_textureTarget; }
-	inline GLuint GetTextureID() { return m_textureID; }
+	inline GLenum GetTextureTarget() { return textureTarget; }
+	inline GLuint GetTextureID() { return textureID; }
 protected:
 private:
-	TextureData(TextureData& other) {}
-	void operator=(TextureData& other) {}
+	TextureData(TextureData& _other) {}
+	void operator=(TextureData& _other) {}
 
-	GLenum m_textureTarget;
-	GLuint m_textureID;
+	GLenum textureTarget;
+	GLuint textureID;
 };
 
 class Texture
 {
 public:
-	Texture(const std::string& fileName, GLenum textureTarget = GL_TEXTURE_2D, GLfloat filter = GL_LINEAR);
-	Texture(int width = 0, int height = 0, unsigned char* data = 0, GLenum textureTarget = GL_TEXTURE_2D, GLfloat filter = GL_LINEAR);
+	Texture(const std::string& _fileName, GLenum _textureTarget = GL_TEXTURE_2D, GLfloat _filter = GL_LINEAR);
+	Texture(int _width = 0, int _height = 0, unsigned char* _data = 0, GLenum _textureTarget = GL_TEXTURE_2D, GLfloat _filter = GL_LINEAR);
 	virtual ~Texture();
 
-	void Bind(unsigned int unit = 0) const;
+	void Bind(unsigned int _unit = 0) const;
 protected:
 private:
 	static std::map<std::string, TextureData*> s_resourceMap;
 
-	Texture(Texture& texture) {}
-	void operator=(Texture& texture) {}
+	Texture(Texture& _texture) {}
+	void operator=(Texture& _texture) {}
 
-	TextureData* m_textureData;
-	std::string m_fileName;
+	TextureData* textureData;
+	std::string fileName;
 
-	void InitTexture(int width, int height, unsigned char* data, GLenum textureTarget, GLfloat filter);
+	void InitTexture(int _width, int _height, unsigned char* _data, GLenum _textureTarget, GLfloat _filter);
 };
 
 #endif

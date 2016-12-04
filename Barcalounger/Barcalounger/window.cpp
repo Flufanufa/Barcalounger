@@ -19,11 +19,11 @@ Window* Window::getInstance() {
 	return instance;
 }
 
-bool Window::CreateWindowWithAll(int width, int height, const std::string& title)
+bool Window::CreateWindowWithAll(int _width, int _height, const std::string& _title)
 {
-	Window::s_width = width;
-	Window::s_height = height;
-	Window::s_title = title;
+	Window::s_width = _width;
+	Window::s_height = _height;
+	Window::s_title = _title;
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 
@@ -35,7 +35,7 @@ bool Window::CreateWindowWithAll(int width, int height, const std::string& title
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
-	SDLCreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, false);
+	SDLCreateWindow(_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _width, _height, false);
 
 	GLenum res = glewInit();
 	if (res != GLEW_OK)
@@ -62,9 +62,9 @@ bool Window::IsCloseRequested()
 	return SDLGetIsCloseRequested();
 }
 
-void Window::SetFullScreen(bool value)
+void Window::SetFullScreen(bool _value)
 {
-	SDLSetWindowFullscreen(value);
+	SDLSetWindowFullscreen(_value);
 }
 
 int Window::GetWidth()

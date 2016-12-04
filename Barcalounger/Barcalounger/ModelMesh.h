@@ -12,24 +12,24 @@ public:
 	MeshData(int indexSize);
 	virtual ~MeshData();
 
-	inline unsigned int GetVBO() { return m_vbo; }
-	inline unsigned int GetIBO() { return m_ibo; }
-	inline int GetSize() { return m_size; }
+	inline unsigned int GetVBO() { return vbo; }
+	inline unsigned int GetIBO() { return ibo; }
+	inline int GetSize() { return size; }
 protected:
 private:
-	MeshData(MeshData& other) {}
-	void operator=(MeshData& other) {}
+	MeshData(MeshData& _other) {}
+	void operator=(MeshData& _other) {}
 
-	unsigned int m_vbo;
-	unsigned int m_ibo;
-	int m_size;
+	unsigned int vbo;
+	unsigned int ibo;
+	int size;
 };
 
 class Mesh
 {
 public:
-	Mesh(const std::string& fileName);
-	Mesh(Vertex* vertices, int vertSize, int* indices, int indexSize, bool calcNormals);
+	Mesh(const std::string& _fileName);
+	Mesh(Vertex* _vertices, int _vertSize, int* _indices, int _indexSize, bool _calcNormals);
 	virtual ~Mesh();
 
 	void Draw() const;
@@ -37,14 +37,14 @@ protected:
 private:
 	static std::map<std::string, MeshData*> s_resourceMap;
 
-	Mesh(Mesh& mesh) {}
-	void operator=(Mesh& mesh) {}
+	Mesh(Mesh& _mesh) {}
+	void operator=(Mesh& _mesh) {}
 
-	void CalcNormals(Vertex* vertices, int vertSize, int* indices, int indexSize);
-	void InitMesh(Vertex* vertices, int vertSize, int* indices, int indexSize, bool calcNormals = true);
+	void CalcNormals(Vertex* _vertices, int _vertSize, int* _indices, int _indexSize);
+	void InitMesh(Vertex* _vertices, int _vertSize, int* _indices, int _indexSize, bool _calcNormals = true);
 
-	std::string m_fileName;
-	MeshData* m_meshData;
+	std::string fileName;
+	MeshData* meshData;
 };
 
 #endif //!MODEL_MESH_H

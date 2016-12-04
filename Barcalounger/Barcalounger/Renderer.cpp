@@ -1,3 +1,5 @@
+/* 
+//NO LONGER BEING USED
 #include "Renderer.h"
 #include "LogManager.h"
 
@@ -94,7 +96,7 @@ void Renderer::clear() {
 	numVertices = 0;
 }
 
-/*/
+/
 bool Renderer::initializeWindowDefault() {
 	return windowInstance->CreateWindowDefault();
 }
