@@ -27,6 +27,7 @@ int main(int argc, char* argv[]) {
 
 	//SET ATTRIBUTES NEEDS TO BE CALLED FIRST AND NEEDS AN INSTANCE OF A GAME PASSED THROUGH
 	engineInstance->SetAttributes(800, 450, 80, &game);
+	loginstance->error("Attributes set");
 	engineInstance->CreateWindowDefault();
 	loginstance->error("window opened - no errors");
 
@@ -41,7 +42,6 @@ int main(int argc, char* argv[]) {
 	//	loginstance->error("model loaded! .... ?????????????");
 	//}
 	engineInstance->Start();
-	//engineInstance->Run();
 	loginstance->error("engine ran \"Successfully\"");
 	return 0;
 }

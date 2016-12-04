@@ -11,13 +11,13 @@
 CoreEngine* CoreEngine::instance = NULL;
 Window *WindowInstance = NULL;
 Input *InputInstance = NULL;
+
 CoreEngine *CoreEngine::getInstance() {
 	if (instance == NULL) {
 		instance = new CoreEngine();
 	}
 	return instance;
 }
-
 
 CoreEngine::CoreEngine() {
 	WindowInstance = Window::getInstance();
@@ -42,12 +42,12 @@ CoreEngine::~CoreEngine()
 	if (m_renderingEngine) delete m_renderingEngine;
 }
 
-
-
 bool CoreEngine::CreateWindowWithAll(int width, int height, const std::string& gameName) {
+	bool isInitialized = WindowInstance->CreateWindowWithAll(width, height, gameName);
 	RenderUtil::InitGraphics();
 	m_renderingEngine = new RenderingEngine();
-	return WindowInstance->CreateWindowWithAll(width, height, gameName);
+	
+	return isInitialized;
 }
 
 bool CoreEngine::CreateWindowWithName(std::string& gameName)
@@ -112,11 +112,7 @@ void CoreEngine::Run()
 		{
 			render = true;
 			
-			//Close if escape is pressed
-			SDLSetIsCloseRequested(InputInstance->getESCPressed());
-			if (SDLGetIsCloseRequested()) {
-				Stop();
-			}
+			
 			//Update input
 			SDL_Event SDLEvent;
 			while (SDL_PollEvent(&SDLEvent)) {
@@ -128,6 +124,12 @@ void CoreEngine::Run()
 					InputInstance->keyUp(SDLEvent);
 					break;
 				}
+			}
+
+			//Close if escape is pressed
+			SDLSetIsCloseRequested(InputInstance->getESCPressed());
+			if (SDLGetIsCloseRequested()) {
+				Stop();
 			}
 
 			m_game->Input((float)m_frameTime);
@@ -148,12 +150,6 @@ void CoreEngine::Run()
 		}
 	}
 }
-
-
-
-
-
-
 
 /*#include "Engine.h"
 #ifndef NULL

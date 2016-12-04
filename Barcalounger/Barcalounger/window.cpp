@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <GL/glew.h>
 #include "sdl_backend.h"
+#include "LogManager.h"
 
 int Window::s_width = 0;
 int Window::s_height = 0;
@@ -39,7 +40,7 @@ bool Window::CreateWindowWithAll(int width, int height, const std::string& title
 	GLenum res = glewInit();
 	if (res != GLEW_OK)
 	{
-		//fprintf(stderr, "Error: '%s'\n", glewGetErrorString(res));
+		LogManager::getInstance()->error("FATAL ERROR: glew did not initialize");
 		return false;
 	}
 	return true;

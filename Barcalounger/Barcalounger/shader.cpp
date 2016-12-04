@@ -4,7 +4,7 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <cstdlib>
-
+#include "LogManager.h"
 #include "util.h"
 
 //--------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ ShaderData::ShaderData(const std::string& fileName)
 
 	if (m_program == 0)
 	{
-		fprintf(stderr, "Error creating shader program\n");
+		LogManager::getInstance()->error("Shader failed to load");
 		exit(1);
 	}
 

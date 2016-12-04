@@ -8,8 +8,8 @@ RenderingEngine::RenderingEngine()
 {
 	m_samplerMap.insert(std::pair<std::string, unsigned int>("diffuse", 0));
 
-	//AddVector3f("ambient", Vector3f(0.1f, 0.1f, 0.1f));
-	//m_defaultShader = new Shader("../resources/shaders/forward-ambient");
+	AddVector3f("ambient", Vector3f(0.1f, 0.1f, 0.1f));
+	m_defaultShader = new Shader("forward-ambient");
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
