@@ -1,46 +1,8 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(367,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
-  window.cpp
-  util.cpp
-  transform.cpp
-c:\gamedev\barcalounger\barcalounger\barcalounger\barcalounger\math3d.h(867): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\gamedev\barcalounger\barcalounger\barcalounger\barcalounger\math3d.h(44): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-  c:\gamedev\barcalounger\barcalounger\barcalounger\barcalounger\math3d.h(44): note: while compiling class template member function 'float Vector<T,4>::Length(void) const'
-          with
-          [
-              T=float
-          ]
-  c:\gamedev\barcalounger\barcalounger\barcalounger\barcalounger\math3d.h(829): note: see reference to function template instantiation 'float Vector<T,4>::Length(void) const' being compiled
-          with
-          [
-              T=float
-          ]
-  c:\gamedev\barcalounger\barcalounger\barcalounger\barcalounger\math3d.h(229): note: see reference to class template instantiation 'Vector<T,4>' being compiled
-          with
-          [
-              T=float
-          ]
-  c:\gamedev\barcalounger\barcalounger\barcalounger\barcalounger\math3d.h(763): note: see reference to class template instantiation 'Vector4<float>' being compiled
-  texture.cpp
-  shader.cpp
-  sdl_backend.cpp
   lighting.cpp
-c:\gamedev\barcalounger\barcalounger\barcalounger\barcalounger\math3d.h(867): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  VertexBufferObject.cpp
-  ModelMesh.cpp
-c:\gamedev\barcalounger\barcalounger\barcalounger\barcalounger\math3d.h(867): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Generating Code...
-  Compiling...
-  game.cpp
-  camera.cpp
-c:\gamedev\barcalounger\barcalounger\barcalounger\barcalounger\math3d.h(867): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  RenderingEngine.cpp
-c:\gamedev\barcalounger\barcalounger\barcalounger\barcalounger\math3d.h(867): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  GameObject.cpp
-  Engine.cpp
-c:\gamedev\barcalounger\barcalounger\barcalounger\barcalounger\math3d.h(867): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Generating Code...
+c:\users\sean\desktop\barcalounger-master\barcalounger\barcalounger\math3d.h(867): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 freeglut.lib(freeglut.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in SDL2.lib(SDL2.dll); second definition ignored
 freeglut.lib(freeglut.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
 assimp.lib(Assimp32.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in SDL2.lib(SDL2.dll); second definition ignored
 assimp.lib(Assimp32.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-  Barcalounger.vcxproj -> C:\GameDev\Barcalounger\Barcalounger\Barcalounger\Debug\Barcalounger.lib
+  Barcalounger.vcxproj -> C:\Users\Sean\Desktop\Barcalounger-master\Barcalounger\Debug\Barcalounger.lib
