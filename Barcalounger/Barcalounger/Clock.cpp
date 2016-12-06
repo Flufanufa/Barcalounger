@@ -1,4 +1,4 @@
-#include "Clock.h"
+/*#include "Clock.h"
 Clock *Clock::instance = NULL;
 Clock::Clock() {
 	
@@ -27,4 +27,4 @@ void Clock::Update() {
 
 float Clock::getTimeDiffInNanoSeconds() {
 	return std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - previousTime).count();
-}
+}*/

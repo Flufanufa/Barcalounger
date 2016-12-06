@@ -136,6 +136,8 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="Clock.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="freeLook.cpp" />
+    <ClCompile Include="freeMove.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="imageLoader.cpp" />
@@ -163,6 +165,8 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="Clock.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="freeLook.h" />
+    <ClInclude Include="freeMove.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="GameComponent.h" />
     <ClInclude Include="GameObject.h" />

@@ -53,7 +53,7 @@ Mesh::Mesh(const std::string& _fileName)
 
 		if (!scene)
 		{
-			std::cout << "Mesh load failed!: " << _fileName << std::endl;
+			//std::cout << "Mesh load failed!: " << _fileName << std::endl;
 			assert(0 == 0);
 		}
 

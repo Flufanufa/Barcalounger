@@ -21,7 +21,7 @@ CoreEngine *CoreEngine::getInstance() {
 
 CoreEngine::CoreEngine() {
 	WindowInstance = Window::getInstance();
-	InputInstance = Input::getInstance();
+	//InputInstance = Input::getInstance();
 }
 
 void CoreEngine::SetAttributes(int _width, int _height, double _frameRate, Game* _game) {
@@ -111,26 +111,11 @@ void CoreEngine::Run()
 		while (unprocessedTime > frameTime)
 		{
 			render = true;
-			
-			
-			//Update input
-			SDL_Event SDLEvent;
-			while (SDL_PollEvent(&SDLEvent)) {
-				switch (SDLEvent.type) {
-				case SDL_KEYDOWN:
-					InputInstance->keyDown(SDLEvent);
-					break;
-				case SDL_KEYUP:
-					InputInstance->keyUp(SDLEvent);
-					break;
-				}
-			}
 
-			//Close if escape is pressed
-			SDLSetIsCloseRequested(InputInstance->getESCPressed());
-			if (SDLGetIsCloseRequested()) {
+			if (WindowInstance->IsCloseRequested())
 				Stop();
-			}
+
+			Input::Update();
 
 			game->Input((float)frameTime);
 			game->Update((float)frameTime);

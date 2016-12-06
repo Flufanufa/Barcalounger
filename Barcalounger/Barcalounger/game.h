@@ -24,8 +24,8 @@ public:
 protected:
 	
 private:
-	Game(Game& game) {}
-	void operator=(Game& game) {}
+	Game(Game& _game) {}
+	void operator=(Game& _game) {}
 
 	GameObject root;
 };

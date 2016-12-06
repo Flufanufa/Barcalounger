@@ -1,3 +1,5 @@
+/*
+//NO LONGER USED
 #ifndef CLOCK_H
 #define CLOCK_H
 
@@ -20,4 +22,4 @@ public:
 	~Clock();
 };
 
-#endif
+#endif*/
