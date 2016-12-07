@@ -23,7 +23,7 @@ public:
 	void Start();
 	void Stop();
 
-	void SetAttributes(int width, int height, double frameRate, Game* game);
+	void SetAttributes(int width, int height, double frameRate, Game* game, void(*_func)(float));
 
 	inline RenderingEngine* GetRenderingEngine() { return renderingEngine; }
 protected:
@@ -44,6 +44,7 @@ private:
 	double frameTime;
 	Game* game;
 	RenderingEngine* renderingEngine;
+	void(*updateFunc)(float);
 };
 
 #endif // COREENGINE_H

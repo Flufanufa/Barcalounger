@@ -24,14 +24,14 @@ CoreEngine::CoreEngine() {
 	//InputInstance = Input::getInstance();
 }
 
-void CoreEngine::SetAttributes(int _width, int _height, double _frameRate, Game* _game) {
+void CoreEngine::SetAttributes(int _width, int _height, double _frameRate, Game* _game, void(*_func)(float)) {
 	isRunning = false;
 	width = _width;
 	height = _height;
 	frameTime = (1.0 / _frameRate);
 	game = _game;
 	renderingEngine = NULL;
-	
+	updateFunc = _func;
 	
 	game->SetEngine(this);
 }
@@ -119,6 +119,7 @@ void CoreEngine::Run()
 
 			game->Input((float)frameTime);
 			game->Update((float)frameTime);
+			updateFunc((float)frameTime);
 
 			unprocessedTime -= frameTime;
 		}

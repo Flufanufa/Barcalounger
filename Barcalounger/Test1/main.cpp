@@ -12,6 +12,10 @@
 
 #undef main
 
+void Update(float deltaTime) {
+
+}
+
 int main(int argc, char* argv[]) {
 	//SDL_Init(SDL_INIT_EVERYTHING);
 	//Renderer *Renderinstance = Renderer::getInstance();
@@ -26,7 +30,7 @@ int main(int argc, char* argv[]) {
 	Game game;
 
 	//SET ATTRIBUTES NEEDS TO BE CALLED FIRST AND NEEDS AN INSTANCE OF A GAME PASSED THROUGH
-	engineInstance->SetAttributes(800, 450, 80, &game);
+	engineInstance->SetAttributes(800, 450, 80, &game, Update);
 	loginstance->error("Attributes set");
 	engineInstance->CreateWindowDefault();
 	loginstance->error("window opened - no errors");
